@@ -1,6 +1,7 @@
 package com.wonder.zhihuibeijing;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -9,9 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import com.wonder.zhihuibeijing.utils.PrefUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +30,8 @@ public class GuideActivity extends Activity{
     private ImageView ivRedPoint;
 
     private LinearLayout llContainer;
+
+    private Button btnStart;
 
     private List<ImageView> imageViewList = new ArrayList<ImageView>();
 
@@ -42,6 +48,7 @@ public class GuideActivity extends Activity{
         viewPager = (ViewPager) findViewById(R.id.vp_guide);
         llContainer = (LinearLayout) findViewById(R.id.ll_container);
         ivRedPoint = (ImageView) findViewById(R.id.iv_red_point);
+        btnStart = (Button) findViewById(R.id.btn_start);
 
         initData();
 
@@ -85,6 +92,20 @@ public class GuideActivity extends Activity{
             @Override
             public void onPageSelected(int position) {
                 //当页面被选中时被调用
+                if (position == mImageIds.length - 1) {
+                    btnStart.setVisibility(View.VISIBLE);
+
+                    btnStart.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            PrefUtils.setBoolean(getApplicationContext(), "is_first_enter", false);
+
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        }
+                    });
+                } else {
+                    btnStart.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
@@ -115,7 +136,7 @@ public class GuideActivity extends Activity{
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams
                     (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             if (i > 0) {
-                params.leftMargin = 10;
+                params.leftMargin = 20;
             }
 
             point.setLayoutParams(params);
