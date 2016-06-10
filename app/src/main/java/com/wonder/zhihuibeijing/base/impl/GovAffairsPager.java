@@ -2,6 +2,7 @@ package com.wonder.zhihuibeijing.base.impl;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ public class GovAffairsPager extends BasePager{
 
     @Override
     public void initData() {
+        Log.d("GovAffairsPager", "政务初始化");
         TextView view = new TextView(mActivity);
         view.setText("政务");
         view.setTextColor(Color.RED);
