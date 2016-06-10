@@ -1,8 +1,10 @@
 package com.wonder.zhihuibeijing.fragment;
 
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
 
 import com.wonder.zhihuibeijing.R;
 import com.wonder.zhihuibeijing.base.BasePager;
@@ -24,11 +26,14 @@ public class ContentFragment extends BaseFragment {
 
     private ArrayList<BasePager> mPagers;
 
+    private RadioGroup rgGroup;
+
     @Override
     public View initView() {
         View view = View.inflate(mActivity, R.layout.fragment_content, null);
 
         mViewPager = (NoScrollViewPager) view.findViewById(R.id.vp_content);
+        rgGroup = (RadioGroup) view.findViewById(R.id.rg_group);
 
         return view;
     }
@@ -42,6 +47,51 @@ public class ContentFragment extends BaseFragment {
         mPagers.add(new GovAffairsPager(mActivity));
         mPagers.add(new SettingPager(mActivity));
         mViewPager.setAdapter(new ContentAdapter());
+
+        rgGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_home:
+                        mViewPager.setCurrentItem(0, false);
+                        break;
+                    case R.id.rb_news:
+                        mViewPager.setCurrentItem(1, false);
+                        break;
+                    case R.id.rb_smart:
+                        mViewPager.setCurrentItem(2, false);
+                        break;
+                    case R.id.rb_gov:
+                        mViewPager.setCurrentItem(3, false);
+                        break;
+                    case R.id.rb_setting:
+                        mViewPager.setCurrentItem(4, false);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                BasePager pager = mPagers.get(position);
+                pager.initData();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        mPagers.get(0).initData();
     }
 
     class ContentAdapter extends PagerAdapter {
@@ -65,7 +115,7 @@ public class ContentFragment extends BaseFragment {
         public Object instantiateItem(ViewGroup container, int position) {
             BasePager pager = mPagers.get(position);
             View view = pager.mRootView;
-            pager.initData();
+//            pager.initData();
             container.addView(view);
 
             return view;
