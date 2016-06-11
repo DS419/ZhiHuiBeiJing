@@ -31,5 +31,6 @@ public class HomePager extends BasePager {
         flContent.addView(view);
 
         tvTitle.setText("首页");
+        btnMenu.setVisibility(View.GONE);
     }
 }

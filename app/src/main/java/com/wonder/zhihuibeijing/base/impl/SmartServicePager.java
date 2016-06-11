@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.TextView;
 
 import com.wonder.zhihuibeijing.base.BasePager;
@@ -28,5 +29,6 @@ public class SmartServicePager extends BasePager{
         flContent.addView(view);
 
         tvTitle.setText("生活");
+        btnMenu.setVisibility(View.VISIBLE);
     }
 }

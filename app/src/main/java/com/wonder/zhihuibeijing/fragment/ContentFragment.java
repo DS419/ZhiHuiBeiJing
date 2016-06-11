@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.wonder.zhihuibeijing.MainActivity;
 import com.wonder.zhihuibeijing.R;
 import com.wonder.zhihuibeijing.base.BasePager;
 import com.wonder.zhihuibeijing.base.impl.GovAffairsPager;
@@ -83,6 +85,11 @@ public class ContentFragment extends BaseFragment {
             public void onPageSelected(int position) {
                 BasePager pager = mPagers.get(position);
                 pager.initData();
+                if (position == 0 || position == 4) {
+                    setSlidingMenuEnable(false);
+                } else {
+                    setSlidingMenuEnable(true);
+                }
             }
 
             @Override
@@ -92,6 +99,17 @@ public class ContentFragment extends BaseFragment {
         });
 
         mPagers.get(0).initData();
+        setSlidingMenuEnable(false);
+    }
+
+    protected void setSlidingMenuEnable(boolean enable) {
+        MainActivity mainUI = (MainActivity) mActivity;
+        SlidingMenu slidingMenu = mainUI.getSlidingMenu();
+        if (enable) {
+            slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        } else {
+            slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+        }
     }
 
     class ContentAdapter extends PagerAdapter {

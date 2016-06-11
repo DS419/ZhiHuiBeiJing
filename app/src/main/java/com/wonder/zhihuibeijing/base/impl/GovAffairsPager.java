@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.TextView;
 
 import com.wonder.zhihuibeijing.base.BasePager;
@@ -26,5 +27,6 @@ public class GovAffairsPager extends BasePager{
         view.setGravity(Gravity.CENTER);
         flContent.addView(view);
         tvTitle.setText("政务");
+        btnMenu.setVisibility(View.VISIBLE);
     }
 }

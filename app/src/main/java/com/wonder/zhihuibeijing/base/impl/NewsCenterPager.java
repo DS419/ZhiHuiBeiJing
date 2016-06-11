@@ -30,5 +30,6 @@ public class NewsCenterPager extends BasePager{
         flContent.addView(view);
 
         tvTitle.setText("新闻");
+        btnMenu.setVisibility(View.VISIBLE);
     }
 }
