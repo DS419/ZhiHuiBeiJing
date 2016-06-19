@@ -16,4 +16,14 @@ public class PrefUtils {
         context.getSharedPreferences("config", Context.MODE_PRIVATE)
                 .edit().putBoolean(key, def).commit();
     }
+
+    public static String getString(Context context, String key, String def) {
+        return context.getSharedPreferences("config",
+                Context.MODE_PRIVATE).getString(key, def);
+    }
+
+    public static void setString(Context context, String key, String def) {
+        context.getSharedPreferences("config", Context.MODE_PRIVATE)
+                .edit().putString(key, def).commit();
+    }
 }
