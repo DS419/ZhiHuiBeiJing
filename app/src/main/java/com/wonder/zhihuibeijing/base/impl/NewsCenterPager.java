@@ -8,12 +8,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.wonder.zhihuibeijing.base.BasePager;
+import com.wonder.zhihuibeijing.domain.NewsMenu;
 import com.wonder.zhihuibeijing.global.GlobalConstants;
 
 /**
@@ -48,6 +50,7 @@ public class NewsCenterPager extends BasePager{
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Log.d("NewsCenterPager", String.valueOf(responseInfo.result));
+                processData(responseInfo.result);
             }
 
             @Override
@@ -56,5 +59,11 @@ public class NewsCenterPager extends BasePager{
                 Toast.makeText(mActivity, s, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void processData(String result) {
+        Gson gson = new Gson();
+        NewsMenu data = gson.fromJson(result, NewsMenu.class);
+        Log.d("NewsCenterPager", String.valueOf(data));
     }
 }
